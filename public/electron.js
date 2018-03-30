@@ -31,18 +31,21 @@ function createWindow()
         slashes: true
     });
     mainWindow.loadURL(startUrl);
-
+    mainWindow.webContents.openDevTools();
     // Open the DevTools.
     if(startUrl.startsWith('http'))
     {
         mainWindow.webContents.openDevTools();
 
         // 加载 react/redux 调试工具
-        if('darwin' === platform)
-        {
-            BrowserWindow.addDevToolsExtension('/Users/issuser/Library/Application\ Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/3.1.0_0');
-            BrowserWindow.addDevToolsExtension('/Users/issuser/Library/Application\ Support/Google/Chrome/Default/Extensions/lmhkpmbekcpmknklioeibfkpmmfibljd/2.15.2_0');
-        }
+        const loadDevtool = require('electron-load-devtool');
+        loadDevtool(loadDevtool.REDUX_DEVTOOLS);
+        loadDevtool(loadDevtool.REACT_DEVELOPER_TOOLS);
+        // if('darwin' === platform)
+        // {
+        //     BrowserWindow.addDevToolsExtension('/Users/issuser/Library/Application\ Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/3.1.0_0');
+        //     BrowserWindow.addDevToolsExtension('/Users/issuser/Library/Application\ Support/Google/Chrome/Default/Extensions/lmhkpmbekcpmknklioeibfkpmmfibljd/2.15.2_0');
+        // }
     }
 
     // Emitted when the window is closed.
